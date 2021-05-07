@@ -8,6 +8,7 @@ using RestaurantAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RestaurantAPI.Controllers
@@ -50,7 +51,8 @@ namespace RestaurantAPI.Controllers
       }
 
       [HttpGet]
-      [Authorize(Policy = "HasNationality")]
+      [Authorize(Policy = "Atleast13")]
+      [Authorize(Policy = "CreatedAtleast2Restaurants")]
       public ActionResult<IEnumerable<RestaurantDto>> GetAllRestaurants()
       {
          var restaurantsDtos = _restaurantService.GetAll();

@@ -23,7 +23,12 @@ namespace RestaurantAPI.Middleware
          {
             await next.Invoke(context);
          }
-         catch(BadRequestException badRequestException)
+         catch(ForbidException forbidException)
+         {
+            context.Response.StatusCode = 403;
+            await context.Response.WriteAsync(forbidException.Message);
+         }
+         catch (BadRequestException badRequestException)
          {
             context.Response.StatusCode = 400;
             await context.Response.WriteAsync(badRequestException.Message);
